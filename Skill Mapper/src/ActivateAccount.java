@@ -7,12 +7,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Properties;
 
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.websocket.Session;
+
 
 @WebServlet("/ActivateAccount")
 public class ActivateAccount extends HttpServlet {
@@ -39,7 +44,7 @@ public class ActivateAccount extends HttpServlet {
 				response.getWriter().println("<h1 style='color:green'>Account activated</h1>");
 				ps.close();
 				
-				ps = con.prepareStatement("select * from userrecord where email =?");
+				/*ps = con.prepareStatement("select * from userrecord where email =?");
 				ps.setString(1, userId);
 				ResultSet rs = ps.executeQuery();
 				if(rs.next()){
@@ -75,13 +80,13 @@ public class ActivateAccount extends HttpServlet {
 	
 		    	          // To get the array of addresses
 		    	          
-		    	              message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+		    	              message.addRecipient(Message.RecipientType.TO, new InternetAddress(userId));
 		    	          
 	
 		    	          message.setSubject(subject);
 		    	          message.setContent(msg, "text/html");
 	
-		    	          Transport transport = session.getTransport("smtp");
+		    	          Transport transport = session.getTransport("smtps");
 		    	          
 		    	              transport.connect("smtp.gmail.com", user, pass);
 		    	              transport.sendMessage(message, message.getAllRecipients());
@@ -90,7 +95,7 @@ public class ActivateAccount extends HttpServlet {
 		       {
 		           System.out.println(e);
 		       }
-			}
+			}*/
 			}
 			else
 				response.getWriter().println("<h1 style='color:red'>Account activated failed</h1>");

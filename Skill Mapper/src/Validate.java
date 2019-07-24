@@ -9,9 +9,11 @@ import java.sql.ResultSet;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/verify")
 public class Validate extends HttpServlet {
@@ -26,7 +28,7 @@ public class Validate extends HttpServlet {
 		String userId = request.getParameter("id");
 		String pass = request.getParameter("psw");
 		String msg=null;
-		String query = "select * from userrecord where email=? and password = ?";
+		String query = "select * from userrecord where email=? and pass = ?";
 		try{
 			Class.forName("org.h2.Driver");
 			
@@ -47,6 +49,8 @@ public class Validate extends HttpServlet {
 					rd.forward(request, response);
 				}
 				else{
+					Cookie ck = new Cookie("usr", rs.getString(1));
+					response.addCookie(ck);
 					RequestDispatcher rd = request.getRequestDispatcher("approve.jsp");
 					rd.forward(request, response);
 				}
