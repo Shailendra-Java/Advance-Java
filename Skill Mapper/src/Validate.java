@@ -45,7 +45,9 @@ public class Validate extends HttpServlet {
 				else
 					msg = "Profile Activated";
 				if(!rs.getString("Role").equals("HR")){
-					RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp?msg="+msg);
+					Cookie ck = new Cookie("usr", rs.getString(1));
+					response.addCookie(ck);
+					RequestDispatcher rd = request.getRequestDispatcher("hirenew.jsp");
 					rd.forward(request, response);
 				}
 				else{

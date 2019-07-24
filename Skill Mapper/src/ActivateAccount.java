@@ -41,7 +41,8 @@ public class ActivateAccount extends HttpServlet {
 			
 			int check = ps.executeUpdate();
 			if(check > 0){
-				response.getWriter().println("<h1 style='color:green'>Account activated</h1>");
+				response.getWriter().println("<html><body><h1 style='color:green'>"
+						+ "Account activated</h1></body></html>");
 				ps.close();
 				
 				/*ps = con.prepareStatement("select * from userrecord where email =?");
@@ -98,7 +99,8 @@ public class ActivateAccount extends HttpServlet {
 			}*/
 			}
 			else
-				response.getWriter().println("<h1 style='color:red'>Account activated failed</h1>");
+				response.getWriter().println("<html><body><h1 style='color:red'>"
+						+ "Account activated failed</h1></body>");
 		}catch(Exception exp){
 			
 		}
